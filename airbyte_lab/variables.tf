@@ -31,6 +31,6 @@ output "yandex_compute_instance_nat_ip_address" {
   value = yandex_compute_instance.airbyte.network_interface.0.nat_ip_address
 }
 
-output "yandex_compute_instance_nat_ip_address" {
+output "yandex_compute_instance_nat_ip_address_sql" {
   value = yandex_compute_instance.mssql.network_interface.0.nat_ip_address
 }
