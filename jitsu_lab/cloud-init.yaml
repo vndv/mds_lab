@@ -1,5 +1,5 @@
 users:
-  - name: airbyte
+  - name: mssql
     groups: sudo
     shell: /bin/bash
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
