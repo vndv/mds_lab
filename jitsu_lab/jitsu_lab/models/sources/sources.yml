@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: click_stg
+    config:
+      enabled: true
+    tables:
+      - name: my_source_table  # enabled
+      - name: ignore_this_one  # not enabled
+        config:
+          enabled: false
