@@ -15,5 +15,8 @@ def ingest_data(table_name,pq_file):
     parquet_file = pq.ParquetFile(pq_file)
 
     for batch in parquet_file.iter_batches(batch_size = 100000):
+        t_start = time()
         batch_df = batch.to_pandas()
         batch_df.to_sql(name=table_name,con=engine, if_exists='append')
+        t_end = time()
+        print("inserted next chunck.. %.3f seconds" % (t_end - t_start))
