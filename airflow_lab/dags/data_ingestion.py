@@ -11,30 +11,35 @@ AIRFLOW_HOME = os.environ.get("AIRFLOW_HOME", "/opt/airflow/")
 
 # https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2023-01.parquet
 
-URL_PREFIX = "https://d37ci6vzurychx.cloudfront.net/trip-data"
-URL_TEMPLATE = (
-    URL_PREFIX + "/yellow_tripdata_{{ execution_date.strftime('%Y-%m') }}.parquet"
-)
-OUTPUT_TEMPLATE = (
-    AIRFLOW_HOME + "/output_{{ execution_date.strftime('%Y-%m') }}.parquet"
-)
-TABLE_NAME_TEMPLATE = "yellow_taxi_{{ execution_date.strftime('%Y_%m') }}"
+URL_PREFIX = 'https://d37ci6vzurychx.cloudfront.net/trip-data'
+URL_TEMPLATE = URL_PREFIX + '/yellow_tripdata_{{ execution_date.strftime(\'%Y-%m\') }}.parquet'
+OUTPUT_TEMPLATE = AIRFLOW_HOME + '/output_{{ execution_date.strftime(\'%Y-%m\') }}.parquet'
+TABLE_NAME_TEMPLATE = 'yellow_taxi_data'
 
 workflow = DAG(
-    "IngestionDag",
+    dag_id="IngestionDag",
     schedule_interval="0 6 2 * *",
-    start_date=datetime(2023, 1, 1),
+    start_date=datetime(2023,1,1),
+    catchup=False,
+
+
 )
 
 with workflow:
+
     wget_task = BashOperator(
-        task_id="wget", bash_command=f"curl -sSL {URL_TEMPLATE} > {OUTPUT_TEMPLATE}"
+        task_id='wget',
+        bash_command=f'curl -sSL {URL_TEMPLATE} > {OUTPUT_TEMPLATE}'
     )
 
     ingest_task = PythonOperator(
-        task_id="ingest",
+        task_id='ingest',
         python_callable=ingest_data,
-        op_kwargs=dict(pq_file=OUTPUT_TEMPLATE, table_name=TABLE_NAME_TEMPLATE),
+        op_kwargs=dict(
+            pq_file=OUTPUT_TEMPLATE,
+            table_name=TABLE_NAME_TEMPLATE
+
+        )
     )
 
     wget_task >> ingest_task

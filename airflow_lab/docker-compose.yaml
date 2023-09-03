@@ -164,7 +164,7 @@ services:
       - airflow
 
   de_postgres:
-    image: postgres:13.3
+    image: postgres:14
     restart: always
     environment:
       POSTGRES_DB: "ny_taxi"
