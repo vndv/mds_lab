@@ -11,18 +11,15 @@ AIRFLOW_HOME = os.environ.get("AIRFLOW_HOME", "/opt/airflow/")
 
 # https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2023-01.parquet
 
-URL_PREFIX = 'https://d37ci6vzurychx.cloudfront.net/trip-data'
-URL_TEMPLATE = URL_PREFIX + '/yellow_tripdata_{{ execution_date.strftime(\'%Y-%m\') }}.parquet'
-OUTPUT_TEMPLATE = AIRFLOW_HOME + '/output_{{ execution_date.strftime(\'%Y-%m\') }}.parquet'
-TABLE_NAME_TEMPLATE = 'yellow_taxi_data'
+URL_PREFIX = "https://d37ci6vzurychx.cloudfront.net/trip-data"
+URL_TEMPLATE = URL_PREFIX + "/yellow_tripdata_{{ execution_date.strftime(\'%Y-%m\') }}.parquet"
+OUTPUT_TEMPLATE = AIRFLOW_HOME + "/output_{{ execution_date.strftime(\'%Y-%m\') }}.parquet"
+TABLE_NAME_TEMPLATE = "yellow_taxi_{{ execution_date.strftime('%Y_%m') }}"
 
 workflow = DAG(
     dag_id="IngestionDag",
     schedule_interval="0 6 2 * *",
     start_date=datetime(2023,1,1),
-    catchup=False,
-
-
 )
 
 with workflow:
