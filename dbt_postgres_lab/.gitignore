@@ -7,3 +7,4 @@ venv/
 env/
 test.env
 __pycache__
+superstore/.user.yml
