@@ -119,7 +119,7 @@ resource "yandex_compute_instance" "mssql" {
 }
 
 resource "yandex_mdb_clickhouse_cluster" "clickhouse_dwh" {
-  name                    = "clickhouse_starschema"
+  name                    = "clickhouse_dwh"
   environment             = "PRESTABLE"
   network_id              = yandex_vpc_network.default_network.id
   sql_database_management = true
