@@ -21,7 +21,7 @@ resource "yandex_vpc_subnet" "default_subnet" {
 // Create SA
 resource "yandex_iam_service_account" "sa" {
   folder_id = var.folder_id
-  name      = "airbyte-storage"
+  name      = "airbyte-storageyes"
 }
 
 // Grant permissions

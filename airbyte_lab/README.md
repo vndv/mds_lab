@@ -26,6 +26,8 @@
 
 ### Set environment variables
 
+yc init
+
 ```bash
     export YC_TOKEN=$(yc iam create-token)
     export YC_CLOUD_ID=$(yc config get cloud-id)
@@ -44,7 +46,7 @@
   ``` 
 
 ### Login to airbyte yandex_compute_instance_nat_ip_address and port 8000 
-admin
+airbyte
 password
 
 ### Connect to SQL SERVER:
