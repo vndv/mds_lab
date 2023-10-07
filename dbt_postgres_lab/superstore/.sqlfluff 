@@ -1,0 +1,11 @@
+[sqlfluff]
+templater = dbt
+dialect = postgres
+[sqlfluff:templater:dbt]
+project_dir = ./
+[sqlfluff:rules]
+comma_style = leading
+[sqlfluff:rules:L010]
+capitalisation_policy = upper
+[sqlfluff:rules:L030]
+capitalisation_policy = upper
