@@ -1,0 +1,32 @@
+version: 2
+
+models:
+
+    - name: stg_shipping_dim
+      columns:
+        - name: ship_id
+          description: ""
+          tests:
+            - unique
+            - not_null
+
+    - name: stg_customer_dim
+      columns:
+        - name: customer_id
+          description: ""
+          tests:
+            - unique
+            - not_null
+
+    - name: stg_geo_dim
+      
+    - name: stg_product_dim
+      columns:
+        - name: prod_id
+          description: ""
+          tests:
+            - unique
+            - not_null
+
+    - name: stg_sales_fact
+      

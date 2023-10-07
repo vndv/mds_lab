@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+
+    - name: orders
+      schema: public
+      tags: ["orders"]
+      description: "source data"
+
+      tables:
+        - name: orders
+          description: "Orders data"
+          identifier: orders

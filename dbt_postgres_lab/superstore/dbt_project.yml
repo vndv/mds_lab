@@ -1,0 +1,23 @@
+name: 'superstore'
+version: '1.0.0'
+config-version: 2
+
+
+profile: 'superstore'
+
+
+model-paths: ["models"]
+test-paths: ["tests"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+
+models:
+  superstore:
+    staging:
+      +materialized: table
+    marts:
+      +materialized: marts
