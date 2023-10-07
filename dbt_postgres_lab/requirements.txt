@@ -1,2 +1,3 @@
-sqlfluff sqlfluff-templater-dbt
+sqlfluff 
+sqlfluff-templater-dbt
 dbt-postgres
