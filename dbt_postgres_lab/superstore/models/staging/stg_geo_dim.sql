@@ -1,4 +1,5 @@
 select
+    region,
     country,
     city,
     state,
@@ -6,6 +7,7 @@ select
     100 + row_number() over () as geo_id
 from
     (select distinct
+        region,
         country,
         city,
         state,

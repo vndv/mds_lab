@@ -11,3 +11,8 @@ sources:
         - name: orders
           description: "Orders data"
           identifier: orders
+          # columns:
+          #   - name: postal_code
+          #     description: ""
+          #     tests:
+          #       - not_null

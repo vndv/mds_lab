@@ -20,4 +20,4 @@ models:
     staging:
       +materialized: table
     marts:
-      +materialized: marts
+      +materialized: view
