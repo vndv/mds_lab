@@ -4,3 +4,5 @@ sqlalchemy
 psycopg2-binary
 apache-airflow-providers-postgres
 dbt-postgres
+python-decouple
+airflow-dbt

@@ -11,3 +11,4 @@ RUN apt-get -y install git
 USER airflow
 COPY requirements.txt /tmp/
 RUN pip install -r /tmp/requirements.txt
+COPY .env  $AIRFLOW_HOME/.env

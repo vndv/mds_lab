@@ -1,0 +1,18 @@
+version: 2
+
+sources:
+
+    - name: ny_taxi
+      schema: public
+      tags: ["ny_taxi"]
+      description: "source data"
+
+      tables:
+        - name: yellow_taxi_data
+          description: ""
+          identifier: yellow_taxi_data
+          columns:
+            - name: vendorid
+              description: ""
+              tests:
+                - not_null

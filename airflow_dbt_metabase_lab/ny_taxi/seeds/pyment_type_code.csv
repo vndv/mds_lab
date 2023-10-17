@@ -1,0 +1,7 @@
+pyment_type_code,pyment_type
+0,Credit card
+1,Cash
+2,No charge
+3,Dispute
+4,Unknown
+5,Voided trip
