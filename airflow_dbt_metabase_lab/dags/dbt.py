@@ -26,13 +26,13 @@ with DAG(
     
     dbt_seed = BashOperator(
         task_id='dbt_seed',
-        bash_command="cd /ny_taxi && dbt run",
+        bash_command="cd /ny_taxi && dbt seed",
     )
 
 
     dbt_run = DbtRunOperator(
-        task_id="dbt_run_my_second_dbt_model",
-        select="my_first_dbt_model.sql",
+        task_id="dbt_run_stg_yellow_taxi_data",
+        select="stg_yellow_taxi_data.sql",
         profiles_dir=default_args["dir"],
         dir=default_args["dir"],
     )
