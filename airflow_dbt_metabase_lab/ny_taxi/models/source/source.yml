@@ -16,3 +16,11 @@ sources:
               description: ""
               tests:
                 - not_null
+        - name: green_taxi_data
+          description: ""
+          identifier: green_taxi_data
+          columns:
+            - name: vendorid
+              description: ""
+              tests:
+                - not_null

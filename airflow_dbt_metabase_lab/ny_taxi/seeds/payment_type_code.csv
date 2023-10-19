@@ -1,4 +1,4 @@
-pyment_type_code,pyment_type
+payment_type_code,payment_type
 0,Credit card
 1,Cash
 2,No charge

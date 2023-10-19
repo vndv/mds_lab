@@ -2,3 +2,51 @@ version: 2
 
 models:
     - name: stg_yellow_taxi_data
+      description: > 
+            Trips made by New York City's iconic yellow taxis. 
+            Yellow taxis are the only vehicles permitted to respond to a street hail from a passenger in all five
+            boroughs. They may also be hailed using an e-hail app like Curb or Arro.
+            The records were collected and provided to the NYC Taxi and Limousine Commission (TLC) by
+            technology service providers. 
+      columns:
+          - name: tripid
+            description: Primary key for this table, generated with a concatenation of vendorid+pickup_datetime
+            tests:
+              - unique:
+                  severity: warn
+              - not_null:
+                  severity: warn
+          - name: VendorID 
+            description: > 
+              A code indicating the TPEP provider that provided the record.
+              1= Creative Mobile Technologies, LLC; 
+              2= VeriFone Inc.
+
+    - name: stg_green_tripdata
+      description: >
+        Trip made by green taxis, also known as boro taxis and street-hail liveries.
+        Green taxis may respond to street hails,but only in the areas indicated in green on the
+        map (i.e. above W 110 St/E 96th St in Manhattan and in the boroughs).
+        The records were collected and provided to the NYC Taxi and Limousine Commission (TLC) by
+        technology service providers. 
+      columns:
+          - name: tripid
+            description: Primary key for this table, generated with a concatenation of vendorid+pickup_datetime
+            tests:
+                - unique:
+                    severity: warn
+                - not_null:
+                    severity: warn
+          - name: VendorID 
+            description: > 
+                A code indicating the TPEP provider that provided the record.
+                1= Creative Mobile Technologies, LLC; 
+                2= VeriFone Inc.
+          - name: pickup_datetime 
+            description: The date and time when the meter was engaged.
+          - name: dropoff_datetime 
+            description: The date and time when the meter was disengaged.
+          - name: Passenger_count 
+            description: The number of passengers in the vehicle. This is a driver-entered value.
+          - name: Trip_distance 
+            description: The elapsed trip distance in miles reported by the taximeter.

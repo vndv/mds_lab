@@ -15,6 +15,15 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   ny_taxi:
-    # Config indicated by + and applies to all files under models/example/
+    staging:
+      +materialized: table
+      +schema: stage
     marts:
       +materialized: view
+      +schema: marts
+
+seeds:
+  +schema: marts
+
+# vars:
+#   surrogate_key_treat_nulls_as_empty_strings: true

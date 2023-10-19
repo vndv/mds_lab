@@ -7,12 +7,17 @@ from airflow.operators.python import PythonOperator
 
 from ingestion_script import ingest_data
 
+# https://d37ci6vzurychx.cloudfront.net/trip-data/green_tripdata_2023-01.parquet
+
 AIRFLOW_HOME = os.environ.get("AIRFLOW_HOME", "/opt/airflow/")
 
 URL_PREFIX = "https://d37ci6vzurychx.cloudfront.net/trip-data"
-URL_TEMPLATE = URL_PREFIX + "/yellow_tripdata_{{ execution_date.strftime(\'%Y-%m\') }}.parquet"
-OUTPUT_TEMPLATE = AIRFLOW_HOME + "/output_{{ execution_date.strftime(\'%Y-%m\') }}.parquet"
-TABLE_TEMPLATE = "yellow_taxi_data"
+URL_YELLOW_TEMPLATE = URL_PREFIX + "/yellow_tripdata_{{ execution_date.strftime(\'%Y-%m\') }}.parquet"
+URL_GREEN_TEMPLATE = URL_PREFIX + "/green_tripdata_{{ execution_date.strftime(\'%Y-%m\') }}.parquet"
+OUTPUT_TEMPLATE_YELLOW = AIRFLOW_HOME + "/output_yellow{{ execution_date.strftime(\'%Y-%m\') }}.parquet"
+OUTPUT_TEMPLATE_GREEN = AIRFLOW_HOME + "/output_green{{ execution_date.strftime(\'%Y-%m\') }}.parquet"
+TABLE_YELLOW_TEMPLATE = "yellow_taxi_data"
+TABLE_GREEN_TEMPLATE = "green_taxi_data"
 
 workflow = DAG(
     dag_id="IngestionDag",
@@ -23,19 +28,35 @@ workflow = DAG(
 
 with workflow:
 
-    wget_task = BashOperator(
-        task_id='wget',
-        bash_command=f'curl -sSL {URL_TEMPLATE} > {OUTPUT_TEMPLATE}'
+    wget_yellow_task = BashOperator(
+        task_id='wget_yellow',
+        bash_command=f'curl -sSL {URL_YELLOW_TEMPLATE} > {OUTPUT_TEMPLATE_YELLOW}'
     )
 
-    ingest_task = PythonOperator(
-        task_id='ingest',
+    wget_green_task = BashOperator(
+        task_id='wget_green',
+        bash_command=f'curl -sSL {URL_GREEN_TEMPLATE} > {OUTPUT_TEMPLATE_GREEN}'
+    )
+
+    ingest_yellow_task = PythonOperator(
+        task_id='ingest_yellow',
         python_callable=ingest_data,
         op_kwargs=dict(
-            pq_file=OUTPUT_TEMPLATE,
-            table_name=TABLE_TEMPLATE
+            pq_file=OUTPUT_TEMPLATE_YELLOW,
+            table_name=TABLE_YELLOW_TEMPLATE
 
         )
     )
 
-    wget_task >> ingest_task
+    ingest_green_task = PythonOperator(
+        task_id='ingest_green',
+        python_callable=ingest_data,
+        op_kwargs=dict(
+            pq_file=OUTPUT_TEMPLATE_GREEN,
+            table_name=TABLE_GREEN_TEMPLATE
+
+        )
+    )
+
+    wget_yellow_task >> ingest_yellow_task
+    wget_green_task >> ingest_green_task
